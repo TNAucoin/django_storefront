@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: provision/docker/storefront/Dockerfile
+      target: development
+    ports:
+      - "8000:8000"
+    command: provision/docker/storefront/bin/run-server.sh
+    depends_on:
+      "db":
+        condition: service_healthy
+    volumes:
+      - .:/app
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/storefront/data/
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: storefront_db
+
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+volumes:
+  postgres_data:
