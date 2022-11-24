@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     # local
     "playground.apps.PlaygroundConfig",
+    "store.apps.StoreConfig",
 ]
 
 MIDDLEWARE = [
