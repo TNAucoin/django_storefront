@@ -9,3 +9,9 @@ docker build \
 .
 
 bash bin/refresh-local-db.sh
+
+docker compose \
+build
+
+docker compose \
+up
