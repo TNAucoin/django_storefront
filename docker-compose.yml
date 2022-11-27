@@ -21,7 +21,7 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: storefront_db
+      POSTGRES_DB: storefront
 
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
