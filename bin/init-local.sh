@@ -8,10 +8,9 @@ docker build \
 -t storefront \
 .
 
-bash bin/refresh-local-db.sh
-
 docker compose \
 build
 
 docker compose \
-up
+up \
+-d

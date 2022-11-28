@@ -19,9 +19,6 @@ main() {
     docker-compose exec -T db bash -c "psql -U postgres --set 'DB_USER=$DB_USER' --set 'DB_NAME=$DB_NAME' --set 'DB_PASS=$DB_PASS' -f /tmp/$TRUNCATE_TABLE_SCRIPT"
     docker-compose exec -T db bash -c "rm /tmp/$TRUNCATE_TABLE_SCRIPT"
 
-    docker cp "provision/docker/storefront/scripts/$STORE_CUSTOMER_SQL" "$DB_ID:/tmp/$STORE_CUSTOMER_SQL"
-    docker-compose exec -T db bash -c "psql -U postgres -d storefront -f /tmp/$STORE_CUSTOMER_SQL"
-    
     echo_green "🚀 Database refreshed successfully!"
 
 

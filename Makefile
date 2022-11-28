@@ -1,31 +1,36 @@
 .DEFAULT_GOAL := help
 
-run-fresh-local:
+rebuild-local:
 	bash bin/init-local.sh
 
-run-local:
+init-local:
+	bash bin/init-fresh.sh
+
+run:
 	docker compose up
 
-stop-local:
+stop:
 	docker compose down
 
-kill-local-full:
+kill-local:
 	docker compose down -v
 
 test:
 	docker-compose exec web python manage.py test
 
 help:
-	@echo "run-fresh-local	- Initializes local env, builds containers, Refreshes data"
-	@echo "run-local	- Starts local with current data (if applicable)"
-	@echo "stop-local	- Stops containers"
-	@echo "kill-local-full	- Stops containers, deletes volumes"
+	@echo "rebuild-local	- Rebuilds the containers, and runs"
+	@echo "init-local	- Initializes local env, builds containers, Refreshes data"
+	@echo "run	- Starts local with current data (if applicable)"
+	@echo "stop	- Stops containers"
+	@echo "kill-local	- Stops containers, deletes volumes"
 	@echo "test	- Run tests"
 
 .PHONY:
-	run-fresh-local
-	run-local
-	stop-local
-	kill-local-full
+	rebuild-local
+	init-local
+	run
+	stop
+	kill-local
 	test
 	help

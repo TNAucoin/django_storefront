@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,6 +30,16 @@ ALLOWED_HOSTS = ["*"]
 
 INTERNAL_IPS = ["127.0.0.1"]
 
+# Docker internal IP
+def show_toolbar_callback(*args, **kwargs):
+    if os.getenv("LOCAL_DEV"):
+        print("TRUE")
+        return True
+    return False
+
+
+DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar_callback}
+print(INTERNAL_IPS)
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,6 +64,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
